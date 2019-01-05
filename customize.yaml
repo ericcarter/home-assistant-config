@@ -1,0 +1,26 @@
+sensor.dark_sky_humidity:
+  friendly_name: Humidity
+sensor.dark_sky_precip:
+  friendly_name: Precip
+sensor.dark_sky_precip_accumulation:
+  friendly_name: Precip Accumulation
+sensor.dark_sky_summary:
+  friendly_name: Weather Summary
+sensor.dark_sky_wind_speed:
+  friendly_name: Wind Speed
+sensor.dark_sky_temperature:
+  friendly_name: Temperature
+sensor.dark_sky_precip_probability:
+  friendly_name: Precip Probability
+sensor.sonarr_upcoming:
+  hidden: true
+light.front_entry_2:
+  hidden: true
+light.stairs_2:
+  hidden: true
+sensor.hallway_motion_motion_sensor:
+  friendly_name: Hallway Motion Sensor
+sensor.kitchen_motion_motion_sensor:
+  friendly_name: Kitchen Motion Sensor
+sensor.living_room_motion_motion_sensor:
+  friendly_name: Living Room Motion Sensor

@@ -1,0 +1,187 @@
+#overview:
+#  default_view:
+#  view: true
+#  entities:
+#    - group.climate
+weather:
+  name: Weather
+  view: no
+  entities:
+    - sun.sun
+    - sensor.dark_sky_summary
+    - sensor.dark_sky_temperature
+    - sensor.dark_sky_humidity
+    - sensor.dark_sky_wind_speed
+    - sensor.dark_sky_precip
+    - sensor.dark_sky_precip_probability
+    - sensor.dark_sky_precip_accumulation
+
+
+main_floor:
+  name: Main Floor
+  view: yes
+  entities:
+    - group.kitchen_sensors
+    - group.main_floor_lights
+    - group.kitchen_lights
+    - group.front_entry_lights
+    - group.stairs_lights
+    - group.dining_room_lights
+
+main_floor_lights:
+  name: Main Floor Lights
+  view: no
+  entities:
+    - group.front_entry_lights
+    - group.stairs_lights
+    - group.dining_room_lights
+    - group.kitchen_lights
+
+basement:
+  name: Basement
+  view: yes
+  entities:
+    - group.all_basement_lights
+    - group.all_living_room_lights
+    - group.living_room_sensors
+    - group.living_room_lamps
+    - group.living_room_ceiling_all_lights
+    - group.living_room_ceiling_rear_lights
+    - group.living_room_ceiling_color_lights
+    - group.office
+    - media_player.kodi
+    - media_player.shield
+    - media_player.denon_avr
+
+all_basement_lights:
+  name: All Basement Lights
+  view: no
+  entities:
+    - group.office
+    - group.all_living_room_lights
+
+all_living_room_lights:
+  name: Living Room
+  view: no
+  entities:
+    - group.living_room_lamps
+    - group.living_room_ceiling_all_lights
+
+living_room_lamps:
+  name: Living Room Lamps
+  view: no
+  entities:
+   - light.corner_lamp
+   - light.couch_table_lamp
+   - light.loveseat_table_lamp
+   - light.square_lamp
+
+living_room_ceiling_all_lights:
+  name: Ceiling
+  view: no
+  entities:
+   - light.hue_ambiance_downlight_1
+   - light.hue_ambiance_downlight_2
+   - light.hue_color_downlight_1
+   - light.hue_color_downlight_2
+   - light.hue_color_downlight_3
+   - light.hue_color_downlight_4
+   
+living_room_ceiling_color_lights:
+  name: Ceiling Color
+  view: no
+  entities:
+   - light.hue_color_downlight_1
+   - light.hue_color_downlight_2
+   - light.hue_color_downlight_3
+   - light.hue_color_downlight_4
+   
+living_room_ceiling_rear_lights:
+  name: Ceiling Rear
+  view: no
+  entities:
+   - light.hue_ambiance_downlight_1
+   - light.hue_ambiance_downlight_2
+
+living_room_sensors:
+  name: Living Room Sensors
+  view: no
+  entities:
+   - sensor.living_room_temperature
+   - sensor.living_room_motion_motion_sensor
+   - sensor.living_room_lux
+   
+office:
+  name: Office
+  view: no
+  entities:
+    - light.office_lamp
+    
+kitchen_lights:
+  name: Kitchen Lights
+  view: no
+  entities:
+    - light.kitchen_fridge
+    - light.kitchen_front_middle
+    - light.kitchen_sink
+    - light.kitchen_garage_door
+    
+kitchen_sensors:
+  name: Kitchen Sensors
+  view: no
+  entities:
+    - sensor.kitchen_temperature
+    - sensor.kitchen_motion_motion_sensor
+    - sensor.kitchen_lux
+
+
+front_entry_lights:
+  name: Front Entry
+  view: no
+  entities:
+    - light.front_entry
+    
+stairs_lights:
+  name: Stairs
+  view: no
+  entities:
+    - light.stairs
+    
+dining_room_lights:
+  name: Dining Room
+  view: no
+  entities:
+    - light.dining_front_left
+    - light.dining_front_right
+    - light.dining_rear_left
+    - light.dining_rear_right
+    
+upstairs:
+  name: Upstairs
+  view: yes
+  entities:
+    - group.master_bed
+    - group.hallway
+    
+master_bed:
+  name: Master Bedroom
+  view: no
+  entities:
+    - binary_sensor.master_bedroom_occupancy
+    - sensor.master_bedroom_temperature
+    - light.hue_ambiance_lamp_1
+    
+hallway:
+  name: Hallway
+  view: no
+  entities:
+    - sensor.thermostat_temperature
+    - sensor.thermostat_humidity
+    - sensor.hallway_motion_motion_sensor
+    - sensor.hallway_lux
+    
+presence:
+  name: Presence
+  view: no
+  entities:
+    - device_tracker.eric
