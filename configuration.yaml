@@ -1,0 +1,177 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret latitude
+  longitude: !secret longitude
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 441
+  # metric for Metric, imperial for Imperial
+  unit_system: Imperial
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: America/Chicago
+  # Customization file
+  customize: !include customize.yaml
+
+# Show links to resources in log and frontend
+#introduction:
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+http:
+  base_url: !secret base_url
+  api_password: !secret http_password
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+# Sensors
+sensor:
+  - platform: darksky
+    api_key: !secret darksky_api
+    monitored_conditions:
+      - summary
+      - temperature
+      - precip_type
+      - precip_probability
+      - precip_accumulation
+      - wind_speed
+      - humidity
+      
+  - platform: hue
+  - platform: template
+    sensors:
+      living_room_lux:
+        friendly_name: 'Living Room Light Level'
+        value_template: '{{states.sensor.living_room_motion_motion_sensor.attributes.lx}}'
+        unit_of_measurement: lux
+        
+#      living_room_motion_temp:
+#        friendly_name: 'Living Room Motion Sensor Temp'
+#        value_template: '{{states.sensor.living_room_motion_motion_sensor.attributes.temperature}}'
+#        unit_of_measurement: °C
+        
+      kitchen_lux:
+        friendly_name: 'Kitchen Light Level'
+        value_template: '{{states.sensor.kitchen_motion_motion_sensor.attributes.lx}}'
+        unit_of_measurement: lux
+        
+#      kitchen_motion_temp:
+#        friendly_name: 'Kitchen Motion Sensor Temp'
+#        value_template: '{{states.sensor.kitchen_motion_motion_sensor.attributes.temperature}}'
+#        unit_of_measurement: °C
+        
+      hallway_lux:
+        friendly_name: 'Hallway Light Level'
+        value_template: '{{states.sensor.hallway_motion_motion_sensor.attributes.lx}}'
+        unit_of_measurement: lux
+        
+#      hallway_motion_temp:
+#        friendly_name: 'Hallway Motion Sensor Temp'
+#        value_template: '{{states.sensor.hallway_motion_motion_sensor.attributes.temperature}}'
+#        unit_of_measurement: °C
+
+# Text to speech
+tts:
+  - platform: google
+
+# Cloud
+cloud:
+
+mqtt:
+  broker: 10.1.1.34
+  
+ecobee:
+  api_key: !secret ecobee_api
+  
+device_tracker:
+  - platform: unifi
+    host: 10.1.1.22
+    username: !secret unifi_user
+    password: !secret unifi_password
+    interval_seconds: 10
+    consider_home: 60
+    verify_ssl: false
+    new_device_defaults:
+      track_new_devices: False
+      
+  - platform: hue
+
+media_player:
+  - platform: plex
+    entity_namespace: 'plex'
+    include_non_clients: true
+    scan_interval: 5
+    show_all_controls: false
+    use_custom_entity_ids: true
+    use_episode_art: true
+    remove_unavailable_clients: true
+    client_remove_interval: 600
+    
+  - platform: spotify
+    client_id: !secret spotify_client_id
+    client_secret: !secret spotify_client_secret
+  
+  - platform: kodi
+    host: 10.1.1.125
+
+  - platform: cast
+    host: 10.1.1.265
+    
+  - platform: denonavr
+    host: 10.1.50.9
+    name: Denon AVR
+    
+hue:
+  bridges:
+    - host:  10.1.70.17
+      allow_hue_groups: false
+      allow_unreachable: true
+
+remote:
+  - platform: harmony
+    name: Living Room
+    host: 10.1.70.11
+    
+camera:
+  - platform: generic
+    name: Garage
+    still_image_url: http://10.1.50.21:554/s0
+    username: ubnt
+
+
+   
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
