@@ -7,6 +7,9 @@
 !.gitignore
 !*.md
 !custom_components
+!*.py
+!device_tracker
+!sensor
 
 # Ignore folders.
 .storage
