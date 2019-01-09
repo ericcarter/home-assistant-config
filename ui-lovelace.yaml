@@ -6,35 +6,401 @@ title: Home
 views:
   - title: Home
     cards:
+      - type: picture-entity
+        title: Garage
+        entity: camera.garage
+        camera_image: camera.garage
+        show_info: true
+        tap_action: dialog
+      - type: entities
+        title: Weather
+        show_header_toggle: true
+        entities:
+          - sun.sun
+          - sensor.dark_sky_summary
+          - sensor.dark_sky_temperature
+          - sensor.dark_sky_humidity
+          - sensor.dark_sky_wind_speed
+          - sensor.dark_sky_precip
+          - sensor.dark_sky_precip_probability
+      - type: entities
+        title: Front Entry
+        show_header_toggle: true
+        entities:
+          - light.front_entry
+      - type: entities
+        title: Stairs
+        show_header_toggle: true
+        entities:
+          - light.stairs
+      - type: entities
+        title: Dining Room
+        show_header_toggle: true
+        entities:
+          - light.dining_front_left
+          - light.dining_front_right
+          - light.dining_rear_left
+          - light.dining_rear_right
+      - type: entities
+        title: Kitchen Lights
+        show_header_toggle: true
+        entities:
+          - light.kitchen_fridge
+          - light.kitchen_front_middle
+          - light.kitchen_sink
+          - light.kitchen_garage_door
+      - type: entities
+        title: Office
+        show_header_toggle: true
+        entities:
+          - light.office_lamp
+      - type: entities
+        title: Living Room Lamps
+        show_header_toggle: true
+        entities:
+          - light.corner_lamp
+          - light.couch_table_lamp
+          - light.loveseat_table_lamp
+          - light.square_lamp
+      - type: entities
+        title: Ceiling
+        show_header_toggle: true
+        entities:
+          - light.hue_ambiance_downlight_1
+          - light.hue_ambiance_downlight_2
+          - light.hue_color_downlight_1
+          - light.hue_color_downlight_2
+          - light.hue_color_downlight_3
+          - light.hue_color_downlight_4
+      - type: entities
+        title: Living Room Lamps
+        show_header_toggle: true
+        entities:
+          - light.corner_lamp
+          - light.couch_table_lamp
+          - light.loveseat_table_lamp
+          - light.square_lamp
+      - type: entities
+        title: Ceiling
+        show_header_toggle: true
+        entities:
+          - light.hue_ambiance_downlight_1
+          - light.hue_ambiance_downlight_2
+          - light.hue_color_downlight_1
+          - light.hue_color_downlight_2
+          - light.hue_color_downlight_3
+          - light.hue_color_downlight_4
+      - type: entities
+        title: Living Room Lamps
+        show_header_toggle: true
+        entities:
+          - light.corner_lamp
+          - light.couch_table_lamp
+          - light.loveseat_table_lamp
+          - light.square_lamp
+      - type: entities
+        title: Ceiling
+        show_header_toggle: true
+        entities:
+          - light.hue_ambiance_downlight_1
+          - light.hue_ambiance_downlight_2
+          - light.hue_color_downlight_1
+          - light.hue_color_downlight_2
+          - light.hue_color_downlight_3
+          - light.hue_color_downlight_4
+      - type: entities
+        title: Ceiling Color
+        show_header_toggle: true
+        entities:
+          - light.hue_color_downlight_1
+          - light.hue_color_downlight_2
+          - light.hue_color_downlight_3
+          - light.hue_color_downlight_4
+      - type: entities
+        title: Ceiling Rear
+        show_header_toggle: true
+        entities:
+          - light.hue_ambiance_downlight_1
+          - light.hue_ambiance_downlight_2
+      - type: entities
+        title: Living Room Sensors
+        show_header_toggle: true
+        entities:
+          - sensor.living_room_temperature
+          - sensor.living_room_motion_motion_sensor
+          - sensor.living_room_lux
+      - type: entities
+        title: Office
+        show_header_toggle: true
+        entities:
+          - light.office_lamp
+      - type: entities
+        title: Kitchen Lights
+        show_header_toggle: true
+        entities:
+          - light.kitchen_fridge
+          - light.kitchen_front_middle
+          - light.kitchen_sink
+          - light.kitchen_garage_door
+      - type: entities
+        title: Kitchen Sensors
+        show_header_toggle: true
+        entities:
+          - sensor.kitchen_temperature
+          - sensor.kitchen_motion_motion_sensor
+          - sensor.kitchen_lux
+      - type: entities
+        title: Front Entry
+        show_header_toggle: true
+        entities:
+          - light.front_entry
+      - type: entities
+        title: Stairs
+        show_header_toggle: true
+        entities:
+          - light.stairs
+      - type: entities
+        title: Dining Room
+        show_header_toggle: true
+        entities:
+          - light.dining_front_left
+          - light.dining_front_right
+          - light.dining_rear_left
+          - light.dining_rear_right
+      - type: entities
+        title: Master Bedroom
+        show_header_toggle: true
+        entities:
+          - binary_sensor.master_bedroom_occupancy
+          - sensor.master_bedroom_temperature
+          - light.hue_ambiance_lamp_1
+      - type: entities
+        title: Hallway
+        show_header_toggle: true
+        entities:
+          - sensor.thermostat_temperature
+          - sensor.thermostat_humidity
+          - sensor.hallway_motion_motion_sensor
+          - sensor.hallway_lux
+      - type: entities
+        title: Presence
+        show_header_toggle: true
+        entities:
+          - device_tracker.eric
       - type: entities
         title: all lights
         show_header_toggle: true
         entities:
+          - light.hue_color_downlight_1
+          - light.hue_color_downlight_3
+          - light.hue_color_downlight_4
+          - light.hue_color_downlight_2
+          - light.hue_ambiance_downlight_1
+          - light.hue_ambiance_downlight_2
+          - light.hue_ambiance_lamp_1
           - light.corner_lamp
           - light.couch_table_lamp
           - light.dining_front_left
           - light.dining_front_right
           - light.dining_rear_left
           - light.dining_rear_right
-          - light.dining_room
           - light.front_entry
-          - light.front_entry_2
-          - light.kitchen
           - light.kitchen_fridge
           - light.kitchen_front_middle
           - light.kitchen_sink
           - light.kitchen_garage_door
-          - light.living_room
           - light.loveseat_table_lamp
-          - light.main_floor
-          - light.office
           - light.office_lamp
           - light.square_lamp
           - light.stairs
-          - light.stairs_2
+      - type: entities
+        title: all devices
+        show_header_toggle: true
+        entities:
+          - device_tracker.eric
+      - type: entities
+        title: all remotes
+        show_header_toggle: true
+        entities:
+          - remote.living_room
       - type: media-control
-        entity: media_player.plexkodiconnect
+        entity: media_player.denon_avr
+      - type: media-control
+        entity: media_player.kodi
+      - type: media-control
+        entity: media_player.spotify
+      - type: media-control
+        entity: media_player.shield
+      - type: weather-forecast
+        entity: weather.thermostat
+  - title: Main Floor
+    cards:
+      - type: entities
+        title: Kitchen Sensors
+        show_header_toggle: true
+        entities:
+          - sensor.kitchen_temperature
+          - sensor.kitchen_motion_motion_sensor
+          - sensor.kitchen_lux
+      - type: entities
+        title: Front Entry
+        show_header_toggle: true
+        entities:
+          - light.front_entry
+      - type: entities
+        title: Stairs
+        show_header_toggle: true
+        entities:
+          - light.stairs
+      - type: entities
+        title: Dining Room
+        show_header_toggle: true
+        entities:
+          - light.dining_front_left
+          - light.dining_front_right
+          - light.dining_rear_left
+          - light.dining_rear_right
+      - type: entities
+        title: Kitchen Lights
+        show_header_toggle: true
+        entities:
+          - light.kitchen_fridge
+          - light.kitchen_front_middle
+          - light.kitchen_sink
+          - light.kitchen_garage_door
+      - type: entities
+        title: Kitchen Lights
+        show_header_toggle: true
+        entities:
+          - light.kitchen_fridge
+          - light.kitchen_front_middle
+          - light.kitchen_sink
+          - light.kitchen_garage_door
+      - type: entities
+        title: Front Entry
+        show_header_toggle: true
+        entities:
+          - light.front_entry
+      - type: entities
+        title: Stairs
+        show_header_toggle: true
+        entities:
+          - light.stairs
+      - type: entities
+        title: Dining Room
+        show_header_toggle: true
+        entities:
+          - light.dining_front_left
+          - light.dining_front_right
+          - light.dining_rear_left
+          - light.dining_rear_right
+  - title: Basement
+    cards:
+      - type: entities
+        title: Office
+        show_header_toggle: true
+        entities:
+          - light.office_lamp
+      - type: entities
+        title: Living Room Lamps
+        show_header_toggle: true
+        entities:
+          - light.corner_lamp
+          - light.couch_table_lamp
+          - light.loveseat_table_lamp
+          - light.square_lamp
+      - type: entities
+        title: Ceiling
+        show_header_toggle: true
+        entities:
+          - light.hue_ambiance_downlight_1
+          - light.hue_ambiance_downlight_2
+          - light.hue_color_downlight_1
+          - light.hue_color_downlight_2
+          - light.hue_color_downlight_3
+          - light.hue_color_downlight_4
+      - type: entities
+        title: Living Room Lamps
+        show_header_toggle: true
+        entities:
+          - light.corner_lamp
+          - light.couch_table_lamp
+          - light.loveseat_table_lamp
+          - light.square_lamp
+      - type: entities
+        title: Ceiling
+        show_header_toggle: true
+        entities:
+          - light.hue_ambiance_downlight_1
+          - light.hue_ambiance_downlight_2
+          - light.hue_color_downlight_1
+          - light.hue_color_downlight_2
+          - light.hue_color_downlight_3
+          - light.hue_color_downlight_4
+      - type: entities
+        title: Living Room Sensors
+        show_header_toggle: true
+        entities:
+          - sensor.living_room_temperature
+          - sensor.living_room_motion_motion_sensor
+          - sensor.living_room_lux
+      - type: entities
+        title: Living Room Lamps
+        show_header_toggle: true
+        entities:
+          - light.corner_lamp
+          - light.couch_table_lamp
+          - light.loveseat_table_lamp
+          - light.square_lamp
+      - type: entities
+        title: Ceiling
+        show_header_toggle: true
+        entities:
+          - light.hue_ambiance_downlight_1
+          - light.hue_ambiance_downlight_2
+          - light.hue_color_downlight_1
+          - light.hue_color_downlight_2
+          - light.hue_color_downlight_3
+          - light.hue_color_downlight_4
+      - type: entities
+        title: Ceiling Rear
+        show_header_toggle: true
+        entities:
+          - light.hue_ambiance_downlight_1
+          - light.hue_ambiance_downlight_2
+      - type: entities
+        title: Ceiling Color
+        show_header_toggle: true
+        entities:
+          - light.hue_color_downlight_1
+          - light.hue_color_downlight_2
+          - light.hue_color_downlight_3
+          - light.hue_color_downlight_4
+      - type: entities
+        title: Office
+        show_header_toggle: true
+        entities:
+          - light.office_lamp
+      - type: media-control
+        entity: media_player.kodi
       - type: media-control
         entity: media_player.shield
       - type: media-control
-        entity: media_player.opera
+        entity: media_player.denon_avr
+  - title: Upstairs
+    cards:
+      - type: entities
+        title: Master Bedroom
+        show_header_toggle: true
+        entities:
+          - binary_sensor.master_bedroom_occupancy
+          - sensor.master_bedroom_temperature
+          - light.hue_ambiance_lamp_1
+      - type: entities
+        title: Hallway
+        show_header_toggle: true
+        entities:
+          - sensor.thermostat_temperature
+          - sensor.thermostat_humidity
+          - sensor.hallway_motion_motion_sensor
+          - sensor.hallway_lux

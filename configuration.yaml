@@ -77,6 +77,11 @@ sensor:
         value_template: '{{states.sensor.living_room_motion_motion_sensor.attributes.lx}}'
         unit_of_measurement: lux
         
+      living_room_battery:
+        friendly_name: 'Living Room Motion Sensor Battery'
+        value_template: '{{states.sensor.living_room_motion_motion_sensor.attributes.battery}}'
+#        unit_of_measurement: percent
+        
 #      living_room_motion_temp:
 #        friendly_name: 'Living Room Motion Sensor Temp'
 #        value_template: '{{states.sensor.living_room_motion_motion_sensor.attributes.temperature}}'
@@ -87,6 +92,11 @@ sensor:
         value_template: '{{states.sensor.kitchen_motion_motion_sensor.attributes.lx}}'
         unit_of_measurement: lux
         
+      kitchen_battery:
+        friendly_name: 'Kitchen Motion Sensor Battery'
+        value_template: '{{states.sensor.kitchen_motion_motion_sensor.attributes.battery}}'
+#        unit_of_measurement: percent
+        
 #      kitchen_motion_temp:
 #        friendly_name: 'Kitchen Motion Sensor Temp'
 #        value_template: '{{states.sensor.kitchen_motion_motion_sensor.attributes.temperature}}'
@@ -96,6 +106,11 @@ sensor:
         friendly_name: 'Hallway Light Level'
         value_template: '{{states.sensor.hallway_motion_motion_sensor.attributes.lx}}'
         unit_of_measurement: lux
+        
+      hallway_battery:
+        friendly_name: 'Hallway Motion Sensor Battery'
+        value_template: '{{states.sensor.hallway_motion_motion_sensor.attributes.battery}}'
+#        unit_of_measurement: percent
         
 #      hallway_motion_temp:
 #        friendly_name: 'Hallway Motion Sensor Temp'
@@ -130,15 +145,7 @@ device_tracker:
 
 media_player:
   - platform: plex
-    entity_namespace: 'plex'
-    include_non_clients: true
-    scan_interval: 5
-    show_all_controls: false
-    use_custom_entity_ids: true
-    use_episode_art: true
-    remove_unavailable_clients: true
-    client_remove_interval: 600
-    
+
   - platform: spotify
     client_id: !secret spotify_client_id
     client_secret: !secret spotify_client_secret
@@ -146,9 +153,6 @@ media_player:
   - platform: kodi
     host: 10.1.1.125
 
-  - platform: cast
-    host: 10.1.1.265
-    
   - platform: denonavr
     host: 10.1.50.9
     name: Denon AVR

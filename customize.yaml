@@ -24,3 +24,11 @@ sensor.kitchen_motion_motion_sensor:
   friendly_name: Kitchen Motion Sensor
 sensor.living_room_motion_motion_sensor:
   friendly_name: Living Room Motion Sensor
+media_player.plexkodiconnect_2:
+  hidden: true
+media_player.opera:
+  hidden: true
+media_player.shield:
+  hidden: true
+media_player.shield_android_tv:
+  hidden: true

@@ -36,7 +36,18 @@ main_floor_lights:
     - group.stairs_lights
     - group.dining_room_lights
     - group.kitchen_lights
-
+    
+kitchen_entry_stairs_lights:
+  name: Kitchen and Entry
+  view: no
+  entities:
+    - light.kitchen_fridge
+    - light.kitchen_front_middle
+    - light.kitchen_sink
+    - light.kitchen_garage_door
+    - light.front_entry
+    - light.stairs
+    
 basement:
   name: Basement
   view: yes
@@ -52,6 +63,7 @@ basement:
     - media_player.kodi
     - media_player.shield
     - media_player.denon_avr
+    - media_player.spotify
 
 all_basement_lights:
   name: All Basement Lights
@@ -110,6 +122,7 @@ living_room_sensors:
    - sensor.living_room_temperature
    - sensor.living_room_motion_motion_sensor
    - sensor.living_room_lux
+   - sensor.living_room_battery
    
 office:
   name: Office
@@ -133,7 +146,7 @@ kitchen_sensors:
     - sensor.kitchen_temperature
     - sensor.kitchen_motion_motion_sensor
     - sensor.kitchen_lux
-
+    - sensor.kitchen_battery
 
 front_entry_lights:
   name: Front Entry
@@ -179,6 +192,7 @@ hallway:
     - sensor.thermostat_humidity
     - sensor.hallway_motion_motion_sensor
     - sensor.hallway_lux
+    - sensor.hallway_battery
     
 presence:
   name: Presence
