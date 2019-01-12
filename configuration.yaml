@@ -174,7 +174,15 @@ camera:
     still_image_url: http://10.1.50.21:554/s0
     username: ubnt
 
-
+google_assistant:
+  project_id: !secret gass_project_id
+  api_key: !secret gass_apihomeassistant
+  exposed_domains:
+    - switch
+    - light
+    - group
+    - media_player
+    - climate
    
 group: !include groups.yaml
 automation: !include automations.yaml

@@ -32,3 +32,5 @@ media_player.shield:
   hidden: true
 media_player.shield_android_tv:
   hidden: true
+media_player.denon_avr:
+  friendly_name: Living Room Receiver
