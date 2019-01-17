@@ -19,6 +19,16 @@ homeassistant:
 # Enables the frontend
 frontend:
 
+panel_iframe:
+  configurator:
+    title: Configurator
+    icon: mdi:wrench
+    url: !secret configurator_url
+  terminal:
+    title: Terminal
+    icon: mdi:console-line
+    url: !secret terminal_url
+
 # Enables configuration UI
 config:
 
@@ -55,6 +65,9 @@ map:
 
 # Track the sun
 sun:
+
+mqtt:
+  broker: localhost
 
 # Sensors
 sensor:
@@ -117,6 +130,15 @@ sensor:
 #        value_template: '{{states.sensor.hallway_motion_motion_sensor.attributes.temperature}}'
 #        unit_of_measurement: °C
 
+  - platform: mqtt
+    name: "Basement Stairs Motion"
+    command_topic: "smartthings/Basement Stairs/motion/cmd"
+    state_topic: "smartthings/Basement Stairs/motion/state"
+    qos: 1
+    payload_on: "active"
+    payload_off: "inactive"
+    icon: mdi:run-fast
+
 # Text to speech
 tts:
   - platform: google
@@ -124,8 +146,6 @@ tts:
 # Cloud
 cloud:
 
-mqtt:
-  broker: 10.1.1.34
   
 ecobee:
   api_key: !secret ecobee_api
@@ -176,13 +196,22 @@ camera:
 
 google_assistant:
   project_id: !secret gass_project_id
-  api_key: !secret gass_apihomeassistant
+  api_key: !secret gass_api
   exposed_domains:
     - switch
     - light
     - group
     - media_player
     - climate
+    
+switch:
+  - platform: mqtt
+    name: "Test Sonoff"
+    command_topic: "cmnd/sonoff/power"
+    state_topic: "stat/sonoff/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
    
 group: !include groups.yaml
 automation: !include automations.yaml

@@ -64,6 +64,13 @@ basement:
     - media_player.shield
     - media_player.denon_avr
     - media_player.spotify
+    - group.basement_stairs_sensors
+
+basement_stairs_sensors:
+  name: Basement Stairs Sensors
+  view: no
+  entities:
+    - sensor.basement_stairs_motion
 
 all_basement_lights:
   name: All Basement Lights
@@ -71,6 +78,7 @@ all_basement_lights:
   entities:
     - group.office
     - group.all_living_room_lights
+
 
 all_living_room_lights:
   name: Living Room

@@ -34,3 +34,5 @@ media_player.shield_android_tv:
   hidden: true
 media_player.denon_avr:
   friendly_name: Living Room Receiver
+medai_player.plexkodiconnect_3:
+  hidden: true
