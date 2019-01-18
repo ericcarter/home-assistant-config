@@ -183,14 +183,22 @@ upstairs:
   entities:
     - group.master_bed
     - group.hallway
+    - group.master_bed_lights
+
     
 master_bed:
-  name: Master Bedroom
+  name: Master Bedroom Sensors
   view: no
   entities:
     - binary_sensor.master_bedroom_occupancy
     - sensor.master_bedroom_temperature
+
+master_bed_lights:
+  name: Master Bedroom Lights
+  view: no
+  entities:
     - light.hue_ambiance_lamp_1
+    - switch.bedroom_fan
     
 hallway:
   name: Hallway

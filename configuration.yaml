@@ -206,9 +206,9 @@ google_assistant:
     
 switch:
   - platform: mqtt
-    name: "Test Sonoff"
-    command_topic: "cmnd/sonoff/power"
-    state_topic: "stat/sonoff/POWER"
+    name: "Bedroom Fan"
+    command_topic: "cmnd/masterbed/power"
+    state_topic: "stat/masterbed/POWER"
     qos: 1
     payload_on: "ON"
     payload_off: "OFF"
