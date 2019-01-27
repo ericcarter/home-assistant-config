@@ -34,5 +34,17 @@ media_player.shield_android_tv:
   hidden: true
 media_player.denon_avr:
   friendly_name: Living Room Receiver
-medai_player.plexkodiconnect_3:
+media_player.plexkodiconnect_3:
+  hidden: true
+binary_sensor.kitchen_occupancy:
+  hidden: true
+binary_sensor.living_room_occupancy:
+  hidden: true
+sensor.basement_ceiling_switch:
+  hidden: true
+sensor.dining_room_switch:
+  hidden: true
+sensor.kitchen_east_switch:
+  hidden: true
+sensor.kitchen_west_switch:
   hidden: true

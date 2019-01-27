@@ -28,9 +28,16 @@ panel_iframe:
     title: Terminal
     icon: mdi:console-line
     url: !secret terminal_url
+  octopi:
+    title: Octopi
+    url: !secret octopi_url
 
 # Enables configuration UI
 config:
+
+influxdb:
+  username: !secret influx_user
+  password: !secret influx_pass
 
 # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
 http:
@@ -189,10 +196,10 @@ remote:
     host: 10.1.70.11
     
 camera:
-  - platform: generic
-    name: Garage
-    still_image_url: http://10.1.50.21:554/s0
-    username: ubnt
+  - platform: mjpeg
+    name: 3D Printer
+    mjpeg_url: http://10.1.50.35/webcam/?action=stream
+
 
 google_assistant:
   project_id: !secret gass_project_id
@@ -206,9 +213,9 @@ google_assistant:
     
 switch:
   - platform: mqtt
-    name: "Bedroom Fan"
-    command_topic: "cmnd/masterbed/power"
-    state_topic: "stat/masterbed/POWER"
+    name: "Octopi"
+    command_topic: "cmnd/octopi/power"
+    state_topic: "stat/octopi/POWER"
     qos: 1
     payload_on: "ON"
     payload_off: "OFF"

@@ -66,12 +66,6 @@ basement:
     - media_player.spotify
     - group.basement_stairs_sensors
 
-basement_stairs_sensors:
-  name: Basement Stairs Sensors
-  view: no
-  entities:
-    - sensor.basement_stairs_motion
-
 all_basement_lights:
   name: All Basement Lights
   view: no
@@ -131,6 +125,8 @@ living_room_sensors:
    - sensor.living_room_motion_motion_sensor
    - sensor.living_room_lux
    - sensor.living_room_battery
+   - sensor.basement_stairs_motion
+   - binary_sensor.living_room_occupancy
    
 office:
   name: Office
@@ -155,6 +151,7 @@ kitchen_sensors:
     - sensor.kitchen_motion_motion_sensor
     - sensor.kitchen_lux
     - sensor.kitchen_battery
+    - binary_sensor.kitchen_occupancy
 
 front_entry_lights:
   name: Front Entry
