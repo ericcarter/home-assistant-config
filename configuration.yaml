@@ -35,6 +35,9 @@ panel_iframe:
 # Enables configuration UI
 config:
 
+lovelace:
+  mode: yaml
+
 influxdb:
   username: !secret influx_user
   password: !secret influx_pass
@@ -219,6 +222,19 @@ switch:
     qos: 1
     payload_on: "ON"
     payload_off: "OFF"
+    
+octoprint:
+    host: 10.1.50.35
+    api_key: !secret octoprint_api
+    bed: true
+    number_of_tools: 2
+    sensors:
+      monitored_conditions:
+        - 'Current State'
+        - 'Temperatures'
+        - 'Job Percentage'
+        - 'Time Elapsed'
+        - 'Time Remaining'
    
 group: !include groups.yaml
 automation: !include automations.yaml
