@@ -1,4 +1,11 @@
 title: Home Assistant
+resources:
+  - url: /local/mini-media-player-bundle.js?v=0.9.8
+    type: module
+  - url: /local/mini-graph-card-bundle.js?v=0.1.0
+    type: module
+  - url: /local/simple-thermostat.min.js?v=1
+    type: module
 views:
   - badges: null
     cards:
@@ -47,11 +54,24 @@ views:
       - entity: weather.thermostat
         name: Weather Forecast
         type: weather-forecast
-      - entity: climate.thermostat
-        theme: default
-        type: thermostat
+      - type: custom:simple-thermostat
+        entity: climate.thermostat
+        step_size: 1
+        sensors:
+           - attribute: actual_humidity
+             name: Humidity
+           - attribute: climate_mode
+             name: Mode
+           - attribute: fan
+             name: Fan
+        hide:
+           mode: true
+           state: true
       - entity: media_player.spotify
-        type: media-control
+        type: custom:mini-media-player
+        artwork_border: true
+        artwork: cover
+        show_source: true
     path: default_view
     title: Home
   - badges: []
@@ -203,30 +223,60 @@ views:
     title: Upstairs
   - badges: []
     cards:
-      - detail: 2
-        entity: sensor.dark_sky_temperature
-        graph: line
-        hours_to_show: 24
-        name: Outside Temp
-        type: sensor
-        unit: F
-      - detail: 2
-        entity: sensor.kitchen_temperature
-        graph: line
-        hours_to_show: 24
-        type: sensor
-      - detail: 2
-        entity: sensor.living_room_temperature
-        graph: line
-        type: sensor
-      - detail: 2
-        entity: sensor.master_bedroom_temperature
-        graph: line
-        type: sensor
-      - detail: 2
-        entity: sensor.thermostat_temperature
-        graph: line
-        type: sensor
+      - type: horizontal-stack
+        cards:
+        - type: custom:mini-graph-card
+          entity: sensor.dark_sky_temperature
+          name: Outside Temp
+          line_color: '#3498db'
+          line_width: 2
+          detail: 2
+      - type: horizontal-stack
+        cards:
+        - type: custom:mini-graph-card
+          entity: sensor.dark_sky_humidity
+          name: Humidity
+          line_color: '#e74c3c'
+          line_width: 8
+          detail: 2
+        - type: custom:mini-graph-card
+          entity: sensor.dark_sky_wind_speed
+          name: Wind
+          line_width: 8
+          detail: 2
+      - type: horizontal-stack
+        cards:
+        - type: custom:mini-graph-card
+          entity: sensor.kitchen_temperature
+          name: Kitchen
+          line_color: '#3498db'
+          line_width: 8
+          detail: 2          
+        - type: custom:mini-graph-card
+          entity: sensor.living_room_temperature
+          name: Living Room
+          line_color: '#e74c3c'
+          line_width: 8
+          detail: 2          
+        - type: custom:mini-graph-card
+          entity: sensor.master_bedroom_temperature
+          name: Master
+          line_width: 8
+          detail: 2          
+      - type: horizontal-stack
+        cards:
+        - type: custom:mini-graph-card
+          entity: sensor.thermostat_temperature
+          name: Thermostat
+          line_color: '#3498db'
+          line_width: 8
+          detail: 2          
+        - type: custom:mini-graph-card
+          entity: sensor.thermostat_humidity
+          name: Thermostat Humidity
+          line_color: '#e74c3c'
+          line_width: 8
+          detail: 2
       - hold_action:
           action: none
         image: >-
