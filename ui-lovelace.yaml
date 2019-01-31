@@ -45,6 +45,8 @@ views:
           - entity: sensor.dark_sky_summary
             name: Summary
           - entity: sensor.dark_sky_temperature
+          - entity: sensor.dark_sky_apparent_temperature
+            name: Feels Like
           - entity: sensor.dark_sky_humidity
           - entity: sensor.dark_sky_wind_speed
           - entity: sensor.dark_sky_precip
@@ -168,9 +170,15 @@ views:
         title: Living Room Lamps
         type: entities
       - entity: media_player.denon_avr
-        type: media-control
+        type: custom:mini-media-player
+        artwork_border: true
+        artwork: cover
+        show_source: true
       - entity: media_player.kodi
-        type: media-control
+        type: custom:mini-media-player
+        artwork_border: true
+        artwork: cover
+        show_source: true
       - entities:
           - light.hue_ambiance_downlight_1
           - light.hue_ambiance_downlight_2
@@ -187,7 +195,10 @@ views:
         title: Remote
         type: entities
       - entity: media_player.spotify
-        type: media-control
+        type: custom:mini-media-player
+        artwork_border: true
+        artwork: cover
+        show_source: true
     path: basement
     title: Basement
   - badges: []
@@ -231,6 +242,14 @@ views:
           line_color: '#3498db'
           line_width: 2
           detail: 2
+          hours_to_show: 24
+        - type: custom:mini-graph-card
+          entity: sensor.dark_sky_apparent_temperature
+          name: Feels Like
+          line_color: '#3498db'
+          line_width: 2
+          detail: 2
+          hours_to_show: 24
       - type: horizontal-stack
         cards:
         - type: custom:mini-graph-card
@@ -239,11 +258,13 @@ views:
           line_color: '#e74c3c'
           line_width: 8
           detail: 2
+          hours_to_show: 24
         - type: custom:mini-graph-card
           entity: sensor.dark_sky_wind_speed
           name: Wind
           line_width: 8
           detail: 2
+          hours_to_show: 24
       - type: horizontal-stack
         cards:
         - type: custom:mini-graph-card
@@ -251,18 +272,21 @@ views:
           name: Kitchen
           line_color: '#3498db'
           line_width: 8
-          detail: 2          
+          detail: 2
+          hours_to_show: 24
         - type: custom:mini-graph-card
           entity: sensor.living_room_temperature
           name: Living Room
           line_color: '#e74c3c'
           line_width: 8
-          detail: 2          
+          detail: 2
+          hours_to_show: 24
         - type: custom:mini-graph-card
           entity: sensor.master_bedroom_temperature
           name: Master
           line_width: 8
-          detail: 2          
+          detail: 2
+          hours_to_show: 24
       - type: horizontal-stack
         cards:
         - type: custom:mini-graph-card
@@ -277,6 +301,7 @@ views:
           line_color: '#e74c3c'
           line_width: 8
           detail: 2
+          hours_to_show: 24
       - hold_action:
           action: none
         image: >-
@@ -298,6 +323,9 @@ views:
       - entities:
           - entity: switch.octopi
             icon: 'mdi:pi-box'
+          - entity: switch.3d_printer
+            icon: 'mdi:printer-3d'
+            name: Power
           - entity: sensor.octoprint_current_state
             name: Status
           - entity: sensor.octoprint_job_percentage
@@ -306,7 +334,7 @@ views:
             name: Extruder
           - entity: sensor.octoprint_actual_bed_temp
             name: Bed
-        title: 3D Printer Status
+        title: 3D Printer
         type: glance
       - entity: camera.3d_printer
         type: picture-entity

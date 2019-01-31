@@ -91,6 +91,7 @@ sensor:
       - precip_accumulation
       - wind_speed
       - humidity
+      - apparent_temperature
       
   - platform: hue
   - platform: template
@@ -219,6 +220,14 @@ switch:
     name: "Octopi"
     command_topic: "cmnd/octopi/power"
     state_topic: "stat/octopi/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    
+  - platform: mqtt
+    name: "3D Printer"
+    command_topic: "cmnd/3dprinter/power"
+    state_topic: "stat/3dprinter/POWER"
     qos: 1
     payload_on: "ON"
     payload_off: "OFF"
