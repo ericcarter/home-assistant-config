@@ -133,6 +133,7 @@ office:
   view: no
   entities:
     - light.office_lamp
+    - group.sensor_node_1_card
     
 kitchen_lights:
   name: Kitchen Lights
@@ -212,3 +213,12 @@ presence:
   view: no
   entities:
     - device_tracker.eric
+    
+sensor_node_1_card:  
+  name: Sensor Node 1  
+  entities:  
+    - sensor.sn1_temperature  
+    - sensor.sn1_humidity  
+    - sensor.sn1_ldr  
+    - sensor.sn1_pir  
+    - light.sn1_led

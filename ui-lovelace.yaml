@@ -240,14 +240,14 @@ views:
           entity: sensor.dark_sky_temperature
           name: Outside Temp
           line_color: '#3498db'
-          line_width: 2
+          line_width: 4
           detail: 2
           hours_to_show: 24
         - type: custom:mini-graph-card
           entity: sensor.dark_sky_apparent_temperature
           name: Feels Like
           line_color: '#3498db'
-          line_width: 2
+          line_width: 4
           detail: 2
           hours_to_show: 24
       - type: horizontal-stack
@@ -256,13 +256,13 @@ views:
           entity: sensor.dark_sky_humidity
           name: Humidity
           line_color: '#e74c3c'
-          line_width: 8
+          line_width: 4
           detail: 2
           hours_to_show: 24
         - type: custom:mini-graph-card
           entity: sensor.dark_sky_wind_speed
           name: Wind
-          line_width: 8
+          line_width: 4
           detail: 2
           hours_to_show: 24
       - type: horizontal-stack
@@ -271,20 +271,20 @@ views:
           entity: sensor.kitchen_temperature
           name: Kitchen
           line_color: '#3498db'
-          line_width: 8
+          line_width: 4
           detail: 2
           hours_to_show: 24
         - type: custom:mini-graph-card
           entity: sensor.living_room_temperature
           name: Living Room
           line_color: '#e74c3c'
-          line_width: 8
+          line_width: 4
           detail: 2
           hours_to_show: 24
         - type: custom:mini-graph-card
           entity: sensor.master_bedroom_temperature
           name: Master
-          line_width: 8
+          line_width: 4
           detail: 2
           hours_to_show: 24
       - type: horizontal-stack
@@ -293,13 +293,13 @@ views:
           entity: sensor.thermostat_temperature
           name: Thermostat
           line_color: '#3498db'
-          line_width: 8
+          line_width: 4
           detail: 2          
         - type: custom:mini-graph-card
           entity: sensor.thermostat_humidity
           name: Thermostat Humidity
           line_color: '#e74c3c'
-          line_width: 8
+          line_width: 4
           detail: 2
           hours_to_show: 24
       - hold_action:
@@ -316,6 +316,14 @@ views:
           - entity: light.office_lamp
         show_header_toggle: false
         title: Office Lights
+        type: entities
+      - entities:
+          - entity: sensor.sn1_temperature 
+          - entity: sensor.sn1_humidity 
+          - entity: sensor.sn1_ldr
+          - entity: sensor.sn1_pir
+          - entity: light.sn1_led
+        title: NodeMCU Sensor
         type: entities
     title: Office
   - badges: []

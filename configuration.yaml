@@ -17,6 +17,7 @@ homeassistant:
 #introduction:
 
 # Enables the frontend
+
 frontend:
 
 panel_iframe:
@@ -28,9 +29,10 @@ panel_iframe:
     title: Terminal
     icon: mdi:console-line
     url: !secret terminal_url
-  octopi:
-    title: Octopi
-    url: !secret octopi_url
+  glances:
+    title: Glances
+    icon: mdi:speedometer
+    url: !secret glances_url
 
 # Enables configuration UI
 config:
@@ -78,7 +80,14 @@ sun:
 
 mqtt:
   broker: localhost
-
+  
+#zoneminder:
+#  - host: 10.1.1.39
+#    ssl: false
+#    verify_ssl: false
+#    username: !secret zoneminderuser
+#    password: !secret zoneminderpass
+  
 # Sensors
 sensor:
   - platform: darksky
@@ -150,6 +159,37 @@ sensor:
     payload_off: "inactive"
     icon: mdi:run-fast
 
+  - platform: mqtt  
+    state_topic: "bruh/sensornode1"  
+    name: "SN1 Humidity"  
+    unit_of_measurement: "%"  
+    value_template: '{{ value_json.humidity | round(1) }}'  
+  
+  - platform: mqtt  
+    state_topic: "bruh/sensornode1"  
+    name: "SN1 LDR"
+    ##This sensor is not calibrated to actual LUX. Rather, this a map of the input voltage ranging from 0 - 1023.
+    unit_of_measurement: "LUX"  
+    value_template: '{{ value_json.ldr }}'  
+  
+  - platform: mqtt  
+    state_topic: "bruh/sensornode1"  
+    name: "SN1 PIR"  
+    value_template: '{{ value_json.motion }}'  
+  
+  - platform: mqtt  
+    state_topic: "bruh/sensornode1"  
+    name: "SN1 Temperature"  
+    unit_of_measurement: "°F"  
+    value_template: '{{ value_json.temperature | round(1) }}'  
+
+  - platform: mqtt
+    state_topic: "bruh/sensornode1"
+    name: "SN1 Real Feel"
+    unit_of_measurement: "°F"
+    value_template: '{{ value_json.heatIndex | round(1) }}'
+
+
 # Text to speech
 tts:
   - platform: google
@@ -203,6 +243,7 @@ camera:
   - platform: mjpeg
     name: 3D Printer
     mjpeg_url: http://10.1.50.35/webcam/?action=stream
+#  - platform: zoneminder
 
 
 google_assistant:
@@ -214,6 +255,18 @@ google_assistant:
     - group
     - media_player
     - climate
+
+light:  
+  - platform: mqtt
+    schema: json
+    name: "SN1 LED"  
+    state_topic: "bruh/sensornode1"  
+    command_topic: "bruh/sensornode1/set"  
+    brightness: true  
+    flash: true  
+    rgb: true  
+    optimistic: false  
+    qos: 0 
     
 switch:
   - platform: mqtt
