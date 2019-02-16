@@ -290,11 +290,17 @@ views:
       - type: horizontal-stack
         cards:
         - type: custom:mini-graph-card
+          entity: sensor.sn1_temperature 
+          name: Office
+          line_color: '#3498db'
+          line_width: 4
+          detail: 2      
+        - type: custom:mini-graph-card
           entity: sensor.thermostat_temperature
           name: Thermostat
           line_color: '#3498db'
           line_width: 4
-          detail: 2          
+          detail: 2   
         - type: custom:mini-graph-card
           entity: sensor.thermostat_humidity
           name: Thermostat Humidity
@@ -323,7 +329,15 @@ views:
           - entity: sensor.sn1_ldr
           - entity: sensor.sn1_pir
           - entity: light.sn1_led
-        title: NodeMCU Sensor
+        title: NodeMCU Sensor 1
+        type: entities
+      - entities:
+          - entity: sensor.sn2_temperature 
+          - entity: sensor.sn2_humidity 
+          - entity: sensor.sn2_ldr
+          - entity: sensor.sn2_pir
+          - entity: light.sn2_led
+        title: NodeMCU Sensor 2
         type: entities
     title: Office
   - badges: []
