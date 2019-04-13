@@ -10,27 +10,93 @@ views:
   - badges: null
     cards:
       - entities:
-          - device_tracker.eric
+          - entity: device_tracker.eric
+            name: Eric
         show_header_toggle: false
         title: Presence
-        type: entities
+        aspect_ratio: 866x356       
+        state_image:
+          "home": /local/house_home.jpg
+          "away": /local/house_away.jpg  
+        entity: device_tracker.eric  
+        type: picture-entity
+        
       - entities:
-          - entity: group.all_lights
+          - entity: group.living_room_lamps
             icon: 'mdi:lightbulb'
-            name: All
-          - entity: group.main_floor_lights
+            name: Living Room Lamps
+          - entity: group.kitchen_lights
             icon: 'mdi:lightbulb'
-            name: Main Floor
-          - entity: group.all_basement_lights
+            name: Kitchen
+          - entity: light.kitchen_cabinets
             icon: 'mdi:lightbulb'
-            name: Basement
+            name: Kitchen Cabinets
+          - entity: group.dining_room_lights
+            icon: 'mdi:lightbulb'
+            name: Dining Room
+          - entity: group.living_room_ceiling_all_lights
+            icon: 'mdi:lightbulb'
+            name: Basement Ceiling
           - entity: group.master_bed_lights
             icon: 'mdi:lightbulb'
             name: Master Bed
+          - entity: light.office_lamp
+            icon: 'mdi:lightbulb'
+            name: Master Bed
         show_name: true
-        show_state: true
-        title: All Lights
-        type: glance
+        show_state: true        
+        title: All Lights 
+        aspect_ratio: 866x356        
+        state_image: 
+          "on": /local/xx_l1_lightbulbs_main_on_cropped.jpg
+          "off": /local/xx_l1_lightbulbs_main_off_cropped.jpg
+        entity: group.lights_all
+        type: picture-glance
+        
+      - entities:
+          - entity: group.kitchen_lights
+            name: Kitchen Lights
+        title: Kitchen Lights
+        aspect_ratio: 866x356
+        state_image: 
+          "on": /local/kitchen_lights_on_cropped.jpg
+          "off": /local/kitchen_lights_off_cropped.jpg 
+        entity: group.kitchen_lights
+        type: picture-glance
+ 
+      - entities:
+          - entity: group.dining_room_lights
+            name: Dining Room Lights
+        title: Dining Room Lights
+        aspect_ratio: 866x356
+        state_image: 
+          "on": /local/dining_lights_on_cropped.jpg
+          "off": /local/dining_lights_off_cropped.jpg 
+        entity: group.dining_room_lights
+        type: picture-glance
+        
+      - entities:
+          - entity: group.master_bed_lights
+            name: Master Bedroom Lights
+        title: Master Bedroom Lights
+        aspect_ratio: 866x356        
+        state_image: 
+          "on": /local/master_lights_on_cropped.jpg
+          "off": /local/master_lights_off_cropped.jpg 
+        entity: group.master_bed_lights
+        type: picture-glance
+        
+      - entities:
+          - entity: group.all_living_room_lights
+            name: Living Room Lights
+        title: Living Room Lights
+        aspect_ratio: 866x356        
+        state_image: 
+          "on": /local/living_room_lights_on_cropped.jpg
+          "off": /local/living_room_lights_off_cropped.jpg 
+        entity: group.all_living_room_lights
+        type: picture-glance
+ 
       - entity: group.all_lights
         hold_action:
           action: none
@@ -52,7 +118,7 @@ views:
           - entity: sensor.dark_sky_precip
           - entity: sensor.dark_sky_precip_probability
         title: Current Weather
-        type: glance
+        type: glance  
       - entity: weather.thermostat
         name: Weather Forecast
         type: weather-forecast
@@ -81,7 +147,7 @@ views:
       - entities:
           - entity: sensor.kitchen_temperature
             name: Temp
-          - entity: sensor.kitchen_motion_motion_sensor
+          - entity: binary_sensor.kitchen_motion_motion_sensor
             name: Kitchen
           - entity: sensor.kitchen_lux
             name: Light
@@ -113,6 +179,7 @@ views:
           - light.kitchen_front_middle
           - light.kitchen_sink
           - light.kitchen_garage_door
+          - light.kitchen_cabinets
         show_header_toggle: true
         title: Kitchen Lights
         type: entities
@@ -133,13 +200,6 @@ views:
       - entities:
           - entity: sensor.living_room_temperature
             name: Temp
-          - entity: sensor.living_room_motion_motion_sensor
-            name: Living Room
-          - entity: sensor.living_room_lux
-            name: Light
-          - entity: sensor.living_room_battery
-            icon: 'mdi:battery'
-            name: Battery
           - entity: sensor.basement_stairs_motion
             name: Stairs
           - entity: binary_sensor.living_room_occupancy
@@ -189,11 +249,6 @@ views:
         show_header_toggle: true
         title: Ceiling
         type: entities
-      - entities:
-          - remote.living_room
-        show_header_toggle: false
-        title: Remote
-        type: entities
       - entity: media_player.spotify
         type: custom:mini-media-player
         artwork_border: true
@@ -208,7 +263,7 @@ views:
             name: Temperature
           - entity: sensor.thermostat_humidity
             name: Humidity
-          - entity: sensor.hallway_motion_motion_sensor
+          - entity: binary_sensor.hallway_motion_motion_sensor
             name: Motion
           - entity: sensor.hallway_lux
             name: Light
@@ -290,8 +345,8 @@ views:
       - type: horizontal-stack
         cards:
         - type: custom:mini-graph-card
-          entity: sensor.sn1_temperature 
-          name: Office
+          entity: sensor.sn2_temperature 
+          name: Server Rack
           line_color: '#3498db'
           line_width: 4
           detail: 2      
@@ -323,23 +378,87 @@ views:
         show_header_toggle: false
         title: Office Lights
         type: entities
-      - entities:
-          - entity: sensor.sn1_temperature 
-          - entity: sensor.sn1_humidity 
-          - entity: sensor.sn1_ldr
-          - entity: sensor.sn1_pir
-          - entity: light.sn1_led
-        title: NodeMCU Sensor 1
-        type: entities
+      - entities:  
+          - entity: binary_sensor.office_motion_motion_sensor
+            name: Motion
+          - entity: sensor.office_motion_battery
+            icon: 'mdi:battery'
+            name: Battery
+          - entity: sensor.office_motion_lux
+            name: Light
+          - entity: sensor.office_motion_temp
+            name: Temperature
+        type: glance
+    title: Office
+  - badges: []
+    cards:
       - entities:
           - entity: sensor.sn2_temperature 
+            name: Temperature
           - entity: sensor.sn2_humidity 
-          - entity: sensor.sn2_ldr
+            name: Humidity
           - entity: sensor.sn2_pir
+            name: Motion
           - entity: light.sn2_led
-        title: NodeMCU Sensor 2
+            name: Motion LED
+          - entity: switch.server_rack_heater
+            name: Heater
+        title: Server Rack Environment
+        type: glance
+      - entities:    
+          - entity: sensor.server_rack_power
+            name: Power
+          - entity: sensor.server_rack_current
+            name: Current
+          - entity: sensor.server_rack_voltage
+            name: Voltage
+          - entity: sensor.server_rack_energy_today
+            name: Energy Today
+          - entity: sensor.server_rack_energy_yesterday
+            name: Energy Yesterday
+          - entity: sensor.server_rack_energy_total
+            name: Energy Total
+        title: Server Rack Energy Monitoring
+        type: glance
+      - entities:    
+          - entity: sensor.server_rack_heater_power
+            name: Power
+          - entity: sensor.server_rack_heater_current
+            name: Current
+          - entity: sensor.server_rack_heater_voltage
+            name: Voltage
+          - entity: sensor.server_rack_heater_energy_today
+            name: Energy Today
+          - entity: sensor.server_rack_heater_energy_yesterday
+            name: Energy Yesterday
+          - entity: sensor.server_rack_heater_energy_total
+            name: Energy Total
+        title: Server Rack Heater Energy Monitoring
+        type: glance
+    title: Server Rack
+  - badges: []
+    cards:
+      - entities:
+          - entity: switch.heater_aux_pump
+            name: Heater Auxilary Pump
+        title: Heater
         type: entities
-    title: Office
+      - entities:    
+          - entity: sensor.heater_aux_pump_power
+            name: Power
+          - entity: sensor.heater_aux_pump_current
+            name: Current
+          - entity: sensor.heater_aux_pump_voltage
+            name: Voltage
+          - entity: sensor.heater_aux_pump_energy_today
+            name: Energy Today
+          - entity: sensor.heater_aux_pump_energy_yesterday
+            name: Energy Yesterday
+          - entity: sensor.heater_aux_pump_energy_total
+            name: Energy Total
+        title: Energy Monitoring
+        type: glance
+    title: Utilities
   - badges: []
     cards:
       - entities:
@@ -356,9 +475,31 @@ views:
             name: Extruder
           - entity: sensor.octoprint_actual_bed_temp
             name: Bed
-        title: 3D Printer
+        title: 3D Printer Status
+        type: glance
+      - entities:    
+          - entity: sensor.3d_printer_power
+            name: Power
+          - entity: sensor.3d_printer_current
+            name: Current
+          - entity: sensor.3d_printer_voltage
+            name: Voltage
+          - entity: sensor.3d_printer_energy_today
+            name: Energy Today
+          - entity: sensor.3d_printer_energy_yesterday
+            name: Energy Yesterday
+          - entity: sensor.3d_printer_energy_total
+            name: Energy Total
+        title: Energy Monitoring
         type: glance
       - entity: camera.3d_printer
         type: picture-entity
     icon: ''
     title: 3D Printer
+    
+  - badges: []
+    cards:
+      - entity: camera.garage
+        show_info: true
+        type: picture-entity
+    title: Cameras

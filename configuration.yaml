@@ -19,6 +19,14 @@ homeassistant:
 # Enables the frontend
 
 frontend:
+  themes: !include_dir_merge_named themes
+
+system_health:
+
+logger:
+  default: warning
+  logs:
+    homeassistant.components.mqtt: debug
 
 panel_iframe:
   configurator:
@@ -87,6 +95,10 @@ mqtt:
 #    verify_ssl: false
 #    username: !secret zoneminderuser
 #    password: !secret zoneminderpass
+
+#binary sensors
+binary_sensor:
+  - platform: huesensor
   
 # Sensors
 sensor:
@@ -102,32 +114,32 @@ sensor:
       - humidity
       - apparent_temperature
       
-  - platform: hue
+  - platform: huesensor
   - platform: template
     sensors:
-      living_room_lux:
-        friendly_name: 'Living Room Light Level'
-        value_template: '{{states.sensor.living_room_motion_motion_sensor.attributes.lx}}'
+      office_motion_lux:
+        friendly_name: 'Office Light Level'
+        value_template: '{{states.binary_sensor.office_motion_motion_sensor.attributes.lx}}'
         unit_of_measurement: lux
         
-      living_room_battery:
-        friendly_name: 'Living Room Motion Sensor Battery'
-        value_template: '{{states.sensor.living_room_motion_motion_sensor.attributes.battery}}'
+      office_motion_battery:
+        friendly_name: 'Office Motion Sensor Battery'
+        value_template: '{{states.binary_sensor.office_motion_motion_sensor.attributes.battery}}'
 #        unit_of_measurement: percent
         
-#      living_room_motion_temp:
-#        friendly_name: 'Living Room Motion Sensor Temp'
-#        value_template: '{{states.sensor.living_room_motion_motion_sensor.attributes.temperature}}'
-#        unit_of_measurement: °C
+      office_motion_temp:
+        friendly_name: 'Living Room Motion Sensor Temp'
+        value_template: '{{states.binary_sensor.office_motion_motion_sensor.attributes.temperature}}'
+        unit_of_measurement: °C
         
       kitchen_lux:
         friendly_name: 'Kitchen Light Level'
-        value_template: '{{states.sensor.kitchen_motion_motion_sensor.attributes.lx}}'
+        value_template: '{{states.binary_sensor.kitchen_motion_motion_sensor.attributes.lx}}'
         unit_of_measurement: lux
         
       kitchen_battery:
         friendly_name: 'Kitchen Motion Sensor Battery'
-        value_template: '{{states.sensor.kitchen_motion_motion_sensor.attributes.battery}}'
+        value_template: '{{states.binary_sensor.kitchen_motion_motion_sensor.attributes.battery}}'
 #        unit_of_measurement: percent
         
 #      kitchen_motion_temp:
@@ -137,12 +149,12 @@ sensor:
         
       hallway_lux:
         friendly_name: 'Hallway Light Level'
-        value_template: '{{states.sensor.hallway_motion_motion_sensor.attributes.lx}}'
+        value_template: '{{states.binary_sensor.hallway_motion_motion_sensor.attributes.lx}}'
         unit_of_measurement: lux
         
       hallway_battery:
         friendly_name: 'Hallway Motion Sensor Battery'
-        value_template: '{{states.sensor.hallway_motion_motion_sensor.attributes.battery}}'
+        value_template: '{{states.binary_sensor.hallway_motion_motion_sensor.attributes.battery}}'
 #        unit_of_measurement: percent
         
 #      hallway_motion_temp:
@@ -152,42 +164,14 @@ sensor:
 
   - platform: mqtt
     name: "Basement Stairs Motion"
-    command_topic: "smartthings/Basement Stairs/motion/cmd"
+#    command_topic: "smartthings/Basement Stairs/motion/cmd"
     state_topic: "smartthings/Basement Stairs/motion/state"
     qos: 1
-    payload_on: "active"
-    payload_off: "inactive"
+#    payload_on: "active"
+#    payload_off: "inactive"
     icon: mdi:run-fast
 
-  - platform: mqtt  
-    state_topic: "bruh/sensornode1"  
-    name: "SN1 Humidity"  
-    unit_of_measurement: "%"  
-    value_template: '{{ value_json.humidity | round(1) }}'  
-  
-  - platform: mqtt  
-    state_topic: "bruh/sensornode1"  
-    name: "SN1 LDR"
-    ##This sensor is not calibrated to actual LUX. Rather, this a map of the input voltage ranging from 0 - 1023.
-    unit_of_measurement: "LUX"  
-    value_template: '{{ value_json.ldr }}'  
-  
-  - platform: mqtt  
-    state_topic: "bruh/sensornode1"  
-    name: "SN1 PIR"  
-    value_template: '{{ value_json.motion }}'  
-  
-  - platform: mqtt  
-    state_topic: "bruh/sensornode1"  
-    name: "SN1 Temperature"  
-    unit_of_measurement: "°F"  
-    value_template: '{{ value_json.temperature | round(1) }}'  
 
-  - platform: mqtt
-    state_topic: "bruh/sensornode1"
-    name: "SN1 Real Feel"
-    unit_of_measurement: "°F"
-    value_template: '{{ value_json.heatIndex | round(1) }}'
     
     
   - platform: mqtt  
@@ -220,6 +204,129 @@ sensor:
     unit_of_measurement: "°F"
     value_template: '{{ value_json.heatIndex | round(1) }}'
 
+  - platform: mqtt
+    name: 3D Printer Voltage
+    state_topic: "stat/3dprinter/STATUS10"
+    value_template: "{{ value_json.StatusSNS.ENERGY.Voltage }}"
+    unit_of_measurement: "V"
+  - platform: mqtt
+    name: 3D Printer Current
+    state_topic: "stat/3dprinter/STATUS10"
+    value_template: "{{ value_json.StatusSNS.ENERGY.Current }}"
+    unit_of_measurement: "A"
+  - platform: mqtt
+    name: 3D Printer Power
+    state_topic: "stat/3dprinter/STATUS10"
+    value_template: "{{ value_json.StatusSNS.ENERGY.Power }}"
+    unit_of_measurement: "W"
+  - platform: mqtt
+    name: 3D Printer Energy Today
+    state_topic: "stat/3dprinter/STATUS10"
+    value_template: "{{ value_json.StatusSNS.ENERGY.Today }}"
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: 3D Printer Energy Yesterday
+    state_topic: "stat/3dprinter/STATUS10"
+    value_template: "{{ value_json.StatusSNS.ENERGY.Yesterday }}"
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: 3D Printer Energy Total
+    state_topic: "stat/3dprinter/STATUS10"
+    value_template: "{{ value_json.StatusSNS.ENERGY.Total }}"
+    unit_of_measurement: "kWh"
+
+  - platform: mqtt
+    name: Heater Aux Pump Voltage
+    state_topic: "stat/aux_pump/STATUS10"
+    value_template: "{{ value_json.StatusSNS.ENERGY.Voltage }}"
+    unit_of_measurement: "V"
+  - platform: mqtt
+    name: Heater Aux Pump Current
+    state_topic: "stat/aux_pump/STATUS10"
+    value_template: "{{ value_json.StatusSNS.ENERGY.Current }}"
+    unit_of_measurement: "A"
+  - platform: mqtt
+    name: Heater Aux Pump Power
+    state_topic: "stat/aux_pump/STATUS10"
+    value_template: "{{ value_json.StatusSNS.ENERGY.Power }}"
+    unit_of_measurement: "W"
+  - platform: mqtt
+    name: Heater Aux Pump Energy Today
+    state_topic: "stat/aux_pump/STATUS10"
+    value_template: "{{ value_json.StatusSNS.ENERGY.Today }}"
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: Heater Aux Pump Energy Yesterday
+    state_topic: "stat/aux_pump/STATUS10"
+    value_template: "{{ value_json.StatusSNS.ENERGY.Yesterday }}"
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: Heater Aux Pump Energy Total
+    state_topic: "stat/aux_pump/STATUS10"
+    value_template: "{{ value_json.StatusSNS.ENERGY.Total }}"
+    unit_of_measurement: "kWh"
+    
+  - platform: mqtt
+    name: Server Rack Heater Voltage
+    state_topic: "stat/server_rack_heater/STATUS10"
+    value_template: "{{ value_json.StatusSNS.ENERGY.Voltage }}"
+    unit_of_measurement: "V"
+  - platform: mqtt
+    name: Server Rack Heater Current
+    state_topic: "stat/server_rack_heater/STATUS10"
+    value_template: "{{ value_json.StatusSNS.ENERGY.Current }}"
+    unit_of_measurement: "A"
+  - platform: mqtt
+    name: Server Rack Heater Power
+    state_topic: "stat/server_rack_heater/STATUS10"
+    value_template: "{{ value_json.StatusSNS.ENERGY.Power }}"
+    unit_of_measurement: "W"
+  - platform: mqtt
+    name: Server Rack Heater Energy Today
+    state_topic: "stat/server_rack_heater/STATUS10"
+    value_template: "{{ value_json.StatusSNS.ENERGY.Today }}"
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: Server Rack Heater Energy Yesterday
+    state_topic: "stat/server_rack_heater/STATUS10"
+    value_template: "{{ value_json.StatusSNS.ENERGY.Yesterday }}"
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: Server Rack Heater Energy Total
+    state_topic: "stat/server_rack_heater/STATUS10"
+    value_template: "{{ value_json.StatusSNS.ENERGY.Total }}"
+    unit_of_measurement: "kWh"
+    
+  - platform: mqtt
+    name: Server Rack Voltage
+    state_topic: "stat/server_rack/STATUS10"
+    value_template: "{{ value_json.StatusSNS.ENERGY.Voltage }}"
+    unit_of_measurement: "V"
+  - platform: mqtt
+    name: Server Rack Current
+    state_topic: "stat/server_rack/STATUS10"
+    value_template: "{{ value_json.StatusSNS.ENERGY.Current }}"
+    unit_of_measurement: "A"
+  - platform: mqtt
+    name: Server Rack Power
+    state_topic: "stat/server_rack/STATUS10"
+    value_template: "{{ value_json.StatusSNS.ENERGY.Power }}"
+    unit_of_measurement: "W"
+  - platform: mqtt
+    name: Server Rack Energy Today
+    state_topic: "stat/server_rack/STATUS10"
+    value_template: "{{ value_json.StatusSNS.ENERGY.Today }}"
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: Server Rack Energy Yesterday
+    state_topic: "stat/server_rack/STATUS10"
+    value_template: "{{ value_json.StatusSNS.ENERGY.Yesterday }}"
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: Server Rack Energy Total
+    state_topic: "stat/server_rack/STATUS10"
+    value_template: "{{ value_json.StatusSNS.ENERGY.Total }}"
+    unit_of_measurement: "kWh"
 
 # Text to speech
 tts:
@@ -243,7 +350,7 @@ device_tracker:
     new_device_defaults:
       track_new_devices: False
       
-  - platform: hue
+  - platform: huesensor
 
 media_player:
   - platform: plex
@@ -264,18 +371,18 @@ hue:
     - host:  10.1.70.17
       allow_hue_groups: false
       allow_unreachable: true
-
-remote:
-  - platform: harmony
-    name: Living Room
-    host: 10.1.70.11
     
 camera:
   - platform: mjpeg
     name: 3D Printer
     mjpeg_url: http://10.1.50.35/webcam/?action=stream
-#  - platform: zoneminder
 
+  - platform: mjpeg
+    mjpeg_url: http://10.1.1.43:81/mjpg/garage
+    name: Garage
+#    username: !secret bi_username
+#    password: !secret bi_password
+#    authentication: basic
 
 google_assistant:
   project_id: !secret gass_project_id
@@ -290,25 +397,67 @@ google_assistant:
 light:  
   - platform: mqtt
     schema: json
-    name: "SN1 LED"  
-    state_topic: "bruh/sensornode1"  
-    command_topic: "bruh/sensornode1/set"  
-    brightness: true  
-    flash: true  
-    rgb: true  
-    optimistic: false  
-    qos: 0 
-    
-  - platform: mqtt
-    schema: json
     name: "SN2 LED"  
     state_topic: "bruh/sensornode2"  
     command_topic: "bruh/sensornode2/set"  
     brightness: true  
-    flash: true  
+#    flash: true  
     rgb: true  
     optimistic: false  
     qos: 0 
+
+  - platform: mqtt
+    schema: json
+    unique_id: kitchencabinet
+    name: "Kitchen Cabinets"
+    state_topic: "bruh/kitchen_cabinet"
+    command_topic: "bruh/kitchen_cabinet/set"
+    effect: true
+    effect_list:
+      - bpm
+      - candy cane  
+      - confetti  
+      - cyclon rainbow  
+      - dots  
+      - fire  
+      - glitter  
+      - juggle  
+      - lightning
+      - noise  
+      - police all  
+      - police one  
+      - rainbow  
+      - rainbow with glitter  
+      - ripple  
+      - sinelon  
+      - solid  
+      - twinkle  
+    brightness: true
+#    flash: true
+    rgb: true
+    optimistic: false
+    qos: 0
+
+input_number:
+  kitchen_cabinet_animation_speed:
+    name: Kitchen Cabinet Animation Speed
+    initial: 150
+    min: 1
+    max: 150
+    step: 10
+
+automation: 
+  - alias: "Kitchen Cabinet Animation Speed"
+    initial_state: True
+    hide_entity: False
+    trigger:
+      - platform: state
+        entity_id: input_number.kitchen_cabinet_animation_speed
+    action:
+      - service: mqtt.publish
+        data_template:
+          topic: "bruh/kitchen_cabinet/set"
+          payload: '{"transition":{{ trigger.to_state.state | int }}}'
     
 switch:
   - platform: mqtt
@@ -318,6 +467,7 @@ switch:
     qos: 1
     payload_on: "ON"
     payload_off: "OFF"
+    retain: true
     
   - platform: mqtt
     name: "3D Printer"
@@ -326,6 +476,34 @@ switch:
     qos: 1
     payload_on: "ON"
     payload_off: "OFF"
+    retain: true
+    
+  - platform: mqtt
+    name: "Heater Aux Pump"
+    command_topic: "cmnd/aux_pump/power"
+    state_topic: "stat/aux_pump/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+    
+  - platform: mqtt
+    name: "Server Rack Heater"
+    command_topic: "cmnd/server_rack_heater/power"
+    state_topic: "stat/server_rack_heater/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+    
+  - platform: mqtt
+    name: "Server Rack"
+    command_topic: "cmnd/server_rack/power"
+    state_topic: "stat/server_rack/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
     
 octoprint:
     host: 10.1.50.35
@@ -339,7 +517,12 @@ octoprint:
         - 'Job Percentage'
         - 'Time Elapsed'
         - 'Time Remaining'
+
+remote:
+  - platform: harmony
+    name: Living Room
+    host: 10.1.70.11
    
 group: !include groups.yaml
-automation: !include automations.yaml
+#automation: !include automations.yaml
 script: !include scripts.yaml
