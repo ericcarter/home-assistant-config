@@ -48,3 +48,4 @@ sensor.kitchen_east_switch:
   hidden: true
 sensor.kitchen_west_switch:
   hidden: true
+

@@ -26,9 +26,9 @@ system_health:
 mobile_app:
 
 logger:
-  default: error
-  #logs:
-    # homeassistant.components.mqtt: debug
+  default: debug
+  logs:
+    homeassistant.components.mqtt: debug
     # homeassistant.components.device_tracker.unifi: debug
 
 panel_iframe:
@@ -40,8 +40,8 @@ panel_iframe:
 # Enables configuration UI
 config:
 
-#lovelace:
-#  mode: yaml
+lovelace:
+  mode: yaml
 
 cover:
   - platform: myq
@@ -57,8 +57,8 @@ influxdb:
 
 # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
 http:
-#  base_url: !secret base_url
-#  api_password: !secret http_password
+  base_url: !secret base_url
+  api_password: !secret http_password
   ssl_certificate: /ssl/fullchain.pem
   ssl_key: /ssl/privkey.pem
 
@@ -96,10 +96,7 @@ mqtt:
 #binary sensors
 binary_sensor:
 #  - platform: huesensor
-  - platform: octoprint
-    monitored_conditions:
-      - Printing
-      - Printing Error
+  
 # Sensors
 sensor:
   - platform: darksky
@@ -113,14 +110,6 @@ sensor:
       - wind_speed
       - humidity
       - apparent_temperature
-
-  - platform: openweathermap
-    api_key: !secret openweathermap_api
-    monitored_conditions:
-      - weather
-      - temperature
-      - wind_speed
-      - humidity
       
 #  - platform: huesensor
   - platform: template
@@ -169,22 +158,6 @@ sensor:
 #        friendly_name: 'Hallway Motion Sensor Temp'
 #        value_template: '{{states.sensor.hallway_motion_motion_sensor.attributes.temperature}}'
 #        unit_of_measurement: °C
-
-
-      ender3_time_elapsed_friendly:
-        friendly_name: "Ender 3 Time Elapsed"
-        value_template: "{{ states('sensor.ender_3_time_elapsed') | int | timestamp_custom('%H:%M:%S', 0) }}"
-      ender3_time_remaining_friendly:
-        friendly_name: "Ender 3 Time Remaining"
-        value_template: "{{ states('sensor.ender_3_time_remaining') | int | timestamp_custom('%H:%M:%S', 0) }}"
-
-      ender5_time_elapsed_friendly:
-        friendly_name: "Ender 5 Time Elapsed"
-        value_template: "{{ states('sensor.ender_5_time_elapsed') | int | timestamp_custom('%H:%M:%S', 0) }}"
-      ender5_time_remaining_friendly:
-        friendly_name: "Ender 5 Time Remaining"
-        value_template: "{{ states('sensor.ender_5_time_remaining') | int | timestamp_custom('%H:%M:%S', 0) }}"
-
 
   - platform: mqtt
     name: "Basement Stairs Motion"
@@ -260,37 +233,6 @@ sensor:
     unit_of_measurement: "kWh"
 
   - platform: mqtt
-    name: Ender 5 Voltage
-    state_topic: "stat/ender_5_power/STATUS10"
-    value_template: "{{ value_json.StatusSNS.ENERGY.Voltage }}"
-    unit_of_measurement: "V"
-  - platform: mqtt
-    name: Ender 5 Current
-    state_topic: "stat/ender_5_power/STATUS10"
-    value_template: "{{ value_json.StatusSNS.ENERGY.Current }}"
-    unit_of_measurement: "A"
-  - platform: mqtt
-    name: Ender 5 Power
-    state_topic: "stat/ender_5_power/STATUS10"
-    value_template: "{{ value_json.StatusSNS.ENERGY.Power }}"
-    unit_of_measurement: "W"
-  - platform: mqtt
-    name: Ender 5 Energy Today
-    state_topic: "stat/ender_5_power/STATUS10"
-    value_template: "{{ value_json.StatusSNS.ENERGY.Today }}"
-    unit_of_measurement: "kWh"
-  - platform: mqtt
-    name: Ender 5 Energy Yesterday
-    state_topic: "stat/ender_5_power/STATUS10"
-    value_template: "{{ value_json.StatusSNS.ENERGY.Yesterday }}"
-    unit_of_measurement: "kWh"
-  - platform: mqtt
-    name: Ender 5 Energy Total
-    state_topic: "stat/ender_5_power/STATUS10"
-    value_template: "{{ value_json.StatusSNS.ENERGY.Total }}"
-    unit_of_measurement: "kWh"
-
-  - platform: mqtt
     name: Heater Aux Pump Voltage
     state_topic: "stat/aux_pump/STATUS10"
     value_template: "{{ value_json.StatusSNS.ENERGY.Voltage }}"
@@ -351,8 +293,6 @@ sensor:
     state_topic: "stat/christmas_tree/STATUS10"
     value_template: "{{ value_json.StatusSNS.ENERGY.Total }}"
     unit_of_measurement: "kWh"
-
-
     
 #  - platform: mqtt
 #    name: Server Rack Heater Voltage
@@ -448,17 +388,22 @@ ecobee:
       
 #  - platform: huesensor
 
-spotify:
-    client_id: !secret spotify_client_id
-    client_secret: !secret spotify_client_secret
-
 media_player:
+  - platform: plex
+
   - platform: androidtv
     name: Shield TV
     host: 10.1.50.12
 
+  - platform: spotify
+    client_id: !secret spotify_client_id
+    client_secret: !secret spotify_client_secret
+  
+  - platform: kodi
+    host: 10.1.1.125
+
   - platform: denonavr
-    host: 10.1.50.58
+    host: 10.1.50.17
     name: Denon AVR
     
 hue:
@@ -469,12 +414,8 @@ hue:
     
 camera:
   - platform: mjpeg
-    name: Ender 3
+    name: 3D Printer
     mjpeg_url: http://10.1.50.35/webcam/?action=stream
-
-  - platform: mjpeg
-    name: Ender 5
-    mjpeg_url: http://10.1.50.36/webcam/?action=stream
 
   - platform: mjpeg
     mjpeg_url: http://10.1.1.43:81/mjpg/garage
@@ -495,15 +436,15 @@ camera:
     mjpeg_url: http://10.1.1.43:81/mjpg/frontdoor
     name: Front Door
 
-#google_assistant:
-#  project_id: !secret gass_project_id
-#  api_key: !secret gass_api
-#  exposed_domains:
-#    - switch
-#    - light
-#    - group
-#    - media_player
-#    - climate
+google_assistant:
+  project_id: !secret gass_project_id
+  api_key: !secret gass_api
+  exposed_domains:
+    - switch
+    - light
+    - group
+    - media_player
+    - climate
 
 light:  
   - platform: mqtt
@@ -596,30 +537,30 @@ input_number:
     max: 150
     step: 10
 
+automation: 
+  - alias: "Kitchen Cabinet Animation Speed"
+    initial_state: True
+    hide_entity: False
+    trigger:
+      - platform: state
+        entity_id: input_number.kitchen_cabinet_animation_speed
+    action:
+      - service: mqtt.publish
+        data_template:
+          topic: "bruh/kitchen_cabinet/set"
+          payload: '{"transition":{{ trigger.to_state.state | int }}}'
 
-#  - alias: "Kitchen Cabinet Animation Speed"
-#    initial_state: True
-#    hide_entity: False
-#    trigger:
-#      - platform: state
-#        entity_id: input_number.kitchen_cabinet_animation_speed
-#    action:
-#      - service: mqtt.publish
-#        data_template:
- #         topic: "bruh/kitchen_cabinet/set"
-#          payload: '{"transition":{{ trigger.to_state.state | int }}}'
-
-#  - alias: "Kitchen Stairs Animation Speed"
-#    initial_state: True
-#    hide_entity: False
-#    trigger:
- #     - platform: state
-#        entity_id: input_number.kitchen_stairs_animation_speed
-#    action:
-#      - service: mqtt.publish
- #       data_template:
-#          topic: "bruh/kitchen_stairs/set"
-#          payload: '{"transition":{{ trigger.to_state.state | int }}}'
+  - alias: "Kitchen Stairs Animation Speed"
+    initial_state: True
+    hide_entity: False
+    trigger:
+      - platform: state
+        entity_id: input_number.kitchen_stairs_animation_speed
+    action:
+      - service: mqtt.publish
+        data_template:
+          topic: "bruh/kitchen_stairs/set"
+          payload: '{"transition":{{ trigger.to_state.state | int }}}'
           
 switch:
   - platform: mqtt
@@ -632,18 +573,9 @@ switch:
     retain: true
     
   - platform: mqtt
-    name: "Ender 3"
+    name: "3D Printer"
     command_topic: "cmnd/3dprinter/power"
     state_topic: "stat/3dprinter/POWER"
-    qos: 1
-    payload_on: "ON"
-    payload_off: "OFF"
-    retain: true
-
-  - platform: mqtt
-    name: "Ender 5"
-    command_topic: "cmnd/ender_5_power/power"
-    state_topic: "stat/ender_5_power/POWER"
     qos: 1
     payload_on: "ON"
     payload_off: "OFF"
@@ -685,19 +617,9 @@ switch:
     payload_off: "OFF"
     retain: true
 
-  - platform: mqtt
-    name: "Aquarium Heater"
-    command_topic: "cmnd/aquarium_heater/power"
-    state_topic: "stat/aquarium_heater/POWER"
-    qos: 1
-    payload_on: "ON"
-    payload_off: "OFF"
-    retain: true
-
 octoprint:
-  - host: 10.1.50.35
+    host: 10.1.50.35
     api_key: !secret octoprint_api
-    name: Ender 3
     bed: true
     number_of_tools: 2
     sensors:
@@ -708,24 +630,11 @@ octoprint:
         - 'Time Elapsed'
         - 'Time Remaining'
 
-  - host: 10.1.50.36
-    api_key: !secret octoprint2_api
-    name: Ender 5
-    bed: true
-    number_of_tools: 2
-    sensors:
-      monitored_conditions:
-        - 'Current State'
-        - 'Temperatures'
-        - 'Job Percentage'
-        - 'Time Elapsed'
-        - 'Time Remaining'
-
-#remote:
-#  - platform: harmony
-#    name: Living Room
-#    host: 10.1.70.200
+remote:
+  - platform: harmony
+    name: Living Room
+    host: 10.1.70.200
    
 group: !include groups.yaml
-automation: !include automations.yaml
+#automation: !include automations.yaml
 script: !include scripts.yaml

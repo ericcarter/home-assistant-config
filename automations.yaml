@@ -1,20 +1,15 @@
-# Example automations.yaml entry
-- alias: "Power state on HA start-up"
+- id: '1592424546560'
+  alias: Aquarium temperature too warm
+  description: ''
   trigger:
-    platform: homeassistant
-    event: start
+  - above: 79
+    device_id: 0cdc7f84dfc845c4a180eb5c25035128
+    domain: sensor
+    entity_id: sensor.aquarium_temperature
+    platform: device
+    type: value
+  condition: []
   action:
-    - service: mqtt.publish
-      data:
-        topic: "sonoffs/cmnd/state"
-        payload: ""
-
-- id: letsencrypt-renewal
-  alias: "Let's Encrypt Renewal"
-  trigger:
-  - platform: time
-    at: '16:30:00'
-  action:
-  - service: hassio.addon_restart
-    data:
-      addon: core_letsencrypt 
+  - data:
+      message: The aquarium temperature is too warm
+    service: hangouts.send_message

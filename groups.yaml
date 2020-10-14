@@ -1,11 +1,10 @@
 #overview:
 #  default_view:
-#  view: true
 #  entities:
 #    - group.climate
 weather:
   name: Weather
-  view: no
+
   entities:
     - sun.sun
     - sensor.dark_sky_summary
@@ -18,7 +17,7 @@ weather:
 
 lights_all:
   name: All Lights
-  view: no
+
   entities:
     - group.main_floor_lights
     - group.all_living_room_lights
@@ -27,7 +26,7 @@ lights_all:
     
 main_floor:
   name: Main Floor
-  view: yes
+
   entities:
     - group.kitchen_sensors
     - group.main_floor_lights
@@ -39,7 +38,7 @@ main_floor:
 
 main_floor_lights:
   name: Main Floor Lights
-  view: no
+
   entities:
     - group.front_entry_lights
     - group.stairs_lights
@@ -49,7 +48,7 @@ main_floor_lights:
     
 kitchen_entry_stairs_lights:
   name: Kitchen and Entry
-  view: no
+
   entities:
     - light.kitchen_fridge
     - light.kitchen_front_middle
@@ -60,7 +59,7 @@ kitchen_entry_stairs_lights:
     
 basement:
   name: Basement
-  view: yes
+
   entities:
     - group.all_basement_lights
     - group.all_living_room_lights
@@ -78,22 +77,22 @@ basement:
 
 all_basement_lights:
   name: All Basement Lights
-  view: no
+
   entities:
-    - group.office
     - group.all_living_room_lights
 
 
 all_living_room_lights:
   name: Living Room
-  view: no
+
   entities:
     - group.living_room_lamps
     - group.living_room_ceiling_all_lights
+#    - switch.christmas_tree
 
 living_room_lamps:
   name: Living Room Lamps
-  view: no
+
   entities:
    - light.corner_lamp
    - light.couch_table_lamp
@@ -102,34 +101,26 @@ living_room_lamps:
 
 living_room_ceiling_all_lights:
   name: Ceiling
-  view: no
+
   entities:
    - light.hue_ambiance_downlight_1
    - light.hue_ambiance_downlight_2
-   - light.hue_color_downlight_1
-   - light.hue_color_downlight_2
-   - light.hue_color_downlight_3
-   - light.hue_color_downlight_4
+   - light.dining_rear_left
+   - light.kitchen_fridge
+   - light.dining_rear_right
+   - light.kitchen_sink
    
-living_room_ceiling_color_lights:
-  name: Ceiling Color
-  view: no
-  entities:
-   - light.hue_color_downlight_1
-   - light.hue_color_downlight_2
-   - light.hue_color_downlight_3
-   - light.hue_color_downlight_4
    
 living_room_ceiling_rear_lights:
   name: Ceiling Rear
-  view: no
+
   entities:
    - light.hue_ambiance_downlight_1
    - light.hue_ambiance_downlight_2
 
 living_room_sensors:
   name: Living Room Sensors
-  view: no
+
   entities:
    - sensor.living_room_temperature
    - sensor.living_room_motion_motion_sensor
@@ -140,7 +131,7 @@ living_room_sensors:
    
 office:
   name: Office
-  view: no
+
   entities:
     - light.office_lamp
     - group.sensor_node_1_card
@@ -148,17 +139,23 @@ office:
     
 kitchen_lights:
   name: Kitchen Lights
-  view: no
+
   entities:
-    - light.kitchen_fridge
+    - light.hue_color_downlight_2
     - light.kitchen_front_middle
-    - light.kitchen_sink
+    - light.hue_color_downlight_4
     - light.kitchen_garage_door
 
+kitchen_color_lights:
+  name: Kitchen Color Lights
+
+  entities:
+    - light.hue_color_downlight_2    
+    - light.hue_color_downlight_4
     
 kitchen_sensors:
   name: Kitchen Sensors
-  view: no
+
   entities:
     - sensor.kitchen_temperature
     - sensor.kitchen_motion_motion_sensor
@@ -168,34 +165,50 @@ kitchen_sensors:
 
 front_entry_lights:
   name: Front Entry
-  view: no
+
   entities:
     - light.front_entry
     
 stairs_lights:
   name: Stairs
-  view: no
+
   entities:
     - light.stairs
     
 dining_room_lights:
   name: Dining Room
-  view: no
+
   entities:
     - light.dining_front_left
     - light.dining_front_right
-    - light.dining_rear_left
-    - light.dining_rear_right
+    - light.hue_color_downlight_1
+    - light.hue_color_downlight_3
 
+main_floor_ceiling_color:
+  name: Main Floor Ceiling Color
+
+  entities:
+    - light.hue_color_downlight_1
+    - light.hue_color_downlight_2
+    - light.hue_color_downlight_3
+    - light.hue_color_downlight_4
+    
+dining_room_color_lights:
+  name: Dining Room Color
+
+  entities:
+    - light.hue_color_downlight_1
+    - light.hue_color_downlight_3
+    
 kitchen_cabinet_light:
   name: Kitchen Cabinets
-  view: no
+
   entities:
     - light.kitchen_cabinets  
  
 upstairs:
   name: Upstairs
-  view: yes
+
   entities:
     - group.master_bed
     - group.hallway
@@ -204,21 +217,21 @@ upstairs:
     
 master_bed:
   name: Master Bedroom Sensors
-  view: no
+
   entities:
     - binary_sensor.master_bedroom_occupancy
     - sensor.master_bedroom_temperature
 
 master_bed_lights:
   name: Master Bedroom Lights
-  view: no
+
   entities:
     - light.hue_ambiance_lamp_1
     - switch.bedroom_fan
     
 hallway:
   name: Hallway
-  view: no
+
   entities:
     - sensor.thermostat_temperature
     - sensor.thermostat_humidity
@@ -228,7 +241,7 @@ hallway:
     
 presence:
   name: Presence
-  view: no
+
   entities:
     - device_tracker.eric
     

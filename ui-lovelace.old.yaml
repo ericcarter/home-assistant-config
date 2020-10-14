@@ -6,6 +6,8 @@ resources:
     type: module
   - url: /local/simple-thermostat.min.js?v=1
     type: module
+  - url: /local/lovelace-battery-entity/battery-entity.js?v=1
+    type: module
 views:
   - badges: null
     cards:
@@ -18,7 +20,7 @@ views:
         state_image:
           "home": /local/house_home.jpg
           "away": /local/house_away.jpg  
-        entity: device_tracker.eric  
+        entity: device_tracker.eric_s_oneplus_7_pro
         type: picture-entity
         
       - entities:
@@ -31,6 +33,9 @@ views:
           - entity: light.kitchen_cabinets
             icon: 'mdi:lightbulb'
             name: Kitchen Cabinets
+          - entity: light.kitchen_stairs
+            icon: 'mdi:lightbulb'
+            name: Kitchen Stairs
           - entity: group.dining_room_lights
             icon: 'mdi:lightbulb'
             name: Dining Room
@@ -97,7 +102,7 @@ views:
         entity: group.all_living_room_lights
         type: picture-glance
  
-      - entity: group.all_lights
+      - entity: group.lights_all
         hold_action:
           action: none
         icon: 'mdi:lightbulb'
@@ -122,7 +127,7 @@ views:
       - entity: weather.thermostat
         name: Weather Forecast
         type: weather-forecast
-      - type: custom:simple-thermostat
+      - type: thermostat
         entity: climate.thermostat
         step_size: 1
         sensors:
@@ -147,13 +152,13 @@ views:
       - entities:
           - entity: sensor.kitchen_temperature
             name: Temp
-          - entity: binary_sensor.kitchen_motion_motion_sensor
+          - entity: binary_sensor.kitchen_motion_sensor_motion
             name: Kitchen
-          - entity: sensor.kitchen_lux
+          - entity: sensor.kitchen_motion_sensor_light_level
             name: Light
-          - entity: sensor.kitchen_battery
-            icon: 'mdi:battery'
-            name: Battery
+#          - entity: sensor.kitchen_battery
+#            icon: 'mdi:battery'
+#            name: Battery
           - entity: binary_sensor.kitchen_occupancy
             name: Occupancy
         title: Kitchen Sensors
@@ -169,17 +174,18 @@ views:
       - entities:
           - light.dining_front_left
           - light.dining_front_right
-          - light.dining_rear_left
-          - light.dining_rear_right
+          - light.hue_color_downlight_3
+          - light.hue_color_downlight_1
         show_header_toggle: true
         title: Dining Room
         type: entities
       - entities:
-          - light.kitchen_fridge
+          - light.hue_color_downlight_4
           - light.kitchen_front_middle
-          - light.kitchen_sink
+          - light.hue_color_downlight_2
           - light.kitchen_garage_door
           - light.kitchen_cabinets
+          - light.kitchen_stairs
         show_header_toggle: true
         title: Kitchen Lights
         type: entities
@@ -216,7 +222,6 @@ views:
           - entity: group.living_room_lamps
           - entity: group.living_room_ceiling_all_lights
             name: All Ceiling
-          - entity: group.living_room_ceiling_color_lights
           - entity: group.living_room_ceiling_rear_lights
         show_header_toggle: true
         title: Living Room Lights
@@ -234,7 +239,10 @@ views:
         artwork_border: true
         artwork: cover
         show_source: true
-      - entity: media_player.kodi
+      - entities:
+          - entity: remote.living_room
+        type: entities
+      - entity: media_player.shield
         type: custom:mini-media-player
         artwork_border: true
         artwork: cover
@@ -242,10 +250,10 @@ views:
       - entities:
           - light.hue_ambiance_downlight_1
           - light.hue_ambiance_downlight_2
-          - light.hue_color_downlight_1
-          - light.hue_color_downlight_2
-          - light.hue_color_downlight_3
-          - light.hue_color_downlight_4
+          - light.dining_rear_right
+          - light.kitchen_sink
+          - light.dining_rear_left
+          - light.kitchen_fridge
         show_header_toggle: true
         title: Ceiling
         type: entities
@@ -254,6 +262,13 @@ views:
         artwork_border: true
         artwork: cover
         show_source: true
+      - entities:
+          - entity: switch.christmas_tree
+            icon: 'mdi:pine-tree'
+            name: Tree
+        show_header_toggle: false    
+        title: Christmas Lights
+        type: entities        
     path: basement
     title: Basement
   - badges: []
@@ -263,13 +278,13 @@ views:
             name: Temperature
           - entity: sensor.thermostat_humidity
             name: Humidity
-          - entity: binary_sensor.hallway_motion_motion_sensor
+          - entity: binary_sensor.hallway_motion_sensor_motion
             name: Motion
-          - entity: sensor.hallway_lux
+          - entity: sensor.hallway_motion_sensor_light_level
             name: Light
-          - entity: sensor.hallway_battery
-            icon: 'mdi:battery'
-            name: Battery
+#          - entity: sensor.hallway_battery
+#            icon: 'mdi:battery'
+#            name: Battery
         title: Hallway Sensors
         type: glance
       - entities:
@@ -332,13 +347,14 @@ views:
         - type: custom:mini-graph-card
           entity: sensor.living_room_temperature
           name: Living Room
-          line_color: '#e74c3c'
+          line_color: '#3498db'
           line_width: 4
           detail: 2
           hours_to_show: 24
         - type: custom:mini-graph-card
           entity: sensor.master_bedroom_temperature
           name: Master
+          line_color: '#3498db'
           line_width: 4
           detail: 2
           hours_to_show: 24
@@ -357,9 +373,9 @@ views:
           line_width: 4
           detail: 2   
         - type: custom:mini-graph-card
-          entity: sensor.thermostat_humidity
-          name: Thermostat Humidity
-          line_color: '#e74c3c'
+          entity: sensor.office_motion_sensor_temperature
+          name: Office
+          line_color: '#3498db'
           line_width: 4
           detail: 2
           hours_to_show: 24
@@ -379,14 +395,11 @@ views:
         title: Office Lights
         type: entities
       - entities:  
-          - entity: binary_sensor.office_motion_motion_sensor
+          - entity: binary_sensor.office_motion_sensor_motion
             name: Motion
-          - entity: sensor.office_motion_battery
-            icon: 'mdi:battery'
-            name: Battery
-          - entity: sensor.office_motion_lux
+          - entity: sensor.office_motion_sensor_light_level
             name: Light
-          - entity: sensor.office_motion_temp
+          - entity: sensor.office_motion_sensor_temperature
             name: Temperature
         type: glance
     title: Office
@@ -401,41 +414,39 @@ views:
             name: Motion
           - entity: light.sn2_led
             name: Motion LED
-          - entity: switch.server_rack_heater
-            name: Heater
         title: Server Rack Environment
         type: glance
-      - entities:    
-          - entity: sensor.server_rack_power
-            name: Power
-          - entity: sensor.server_rack_current
-            name: Current
-          - entity: sensor.server_rack_voltage
-            name: Voltage
-          - entity: sensor.server_rack_energy_today
-            name: Energy Today
-          - entity: sensor.server_rack_energy_yesterday
-            name: Energy Yesterday
-          - entity: sensor.server_rack_energy_total
-            name: Energy Total
-        title: Server Rack Energy Monitoring
-        type: glance
-      - entities:    
-          - entity: sensor.server_rack_heater_power
-            name: Power
-          - entity: sensor.server_rack_heater_current
-            name: Current
-          - entity: sensor.server_rack_heater_voltage
-            name: Voltage
-          - entity: sensor.server_rack_heater_energy_today
-            name: Energy Today
-          - entity: sensor.server_rack_heater_energy_yesterday
-            name: Energy Yesterday
-          - entity: sensor.server_rack_heater_energy_total
-            name: Energy Total
-        title: Server Rack Heater Energy Monitoring
-        type: glance
-    title: Server Rack
+#      - entities:    
+#          - entity: sensor.server_rack_power
+#            name: Power
+#          - entity: sensor.server_rack_current
+#            name: Current
+#          - entity: sensor.server_rack_voltage
+#            name: Voltage
+#          - entity: sensor.server_rack_energy_today
+#            name: Energy Today
+#          - entity: sensor.server_rack_energy_yesterday
+#            name: Energy Yesterday
+#          - entity: sensor.server_rack_energy_total
+#            name: Energy Total
+#        title: Server Rack Energy Monitoring
+#        type: glance
+#      - entities:    
+#          - entity: sensor.server_rack_heater_power
+#            name: Power
+#          - entity: sensor.server_rack_heater_current
+#            name: Current
+#          - entity: sensor.server_rack_heater_voltage
+#            name: Voltage
+#          - entity: sensor.server_rack_heater_energy_today
+#            name: Energy Today
+#          - entity: sensor.server_rack_heater_energy_yesterday
+#            name: Energy Yesterday
+#          - entity: sensor.server_rack_heater_energy_total
+#            name: Energy Total
+#        title: Server Rack Heater Energy Monitoring
+#        type: glance
+    title: Garage
   - badges: []
     cards:
       - entities:
@@ -499,7 +510,20 @@ views:
     
   - badges: []
     cards:
+      - entity: camera.front_door
+        show_info: true
+        type: picture-entity
+      - entity: camera.backyard_garage
+        show_info: true
+        type: picture-entity
+      - entity: camera.driveway
+        show_info: true
+        type: picture-entity
+      - entity: camera.backyard_deck
+        show_info: true
+        type: picture-entity
       - entity: camera.garage
         show_info: true
         type: picture-entity
+
     title: Cameras
